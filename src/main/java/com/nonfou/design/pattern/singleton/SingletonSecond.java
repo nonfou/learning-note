@@ -8,7 +8,9 @@ public class SingletonSecond {
   public static SingletonSecond getInstance() {
     if (instance == null) {
       synchronized (SingletonSecond.class) {
-        instance = new SingletonSecond();
+        if (instance == null) {
+          instance = new SingletonSecond();
+        }
       }
     }
 
