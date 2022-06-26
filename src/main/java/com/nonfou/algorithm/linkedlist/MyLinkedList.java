@@ -6,98 +6,98 @@ package com.nonfou.algorithm.linkedlist;
  */
 public class MyLinkedList {
 
-    private final ListNode virtualNode;
+  private final ListNode virtualNode;
 
-    public MyLinkedList() {
-        virtualNode = new ListNode();
-    }
+  public MyLinkedList() {
+    virtualNode = new ListNode();
+  }
 
-    public int get(int index) {
-        if (index >= 0) {
-            ListNode cur = virtualNode.next;
+  public int get(int index) {
+    if (index >= 0) {
+      ListNode cur = virtualNode.next;
 
-            int loop = 0;
-            while (cur != null) {
-                if (loop == index) {
-                    return cur.val;
-                } else {
-                    loop++;
-                    cur = cur.next;
-                }
-            }
+      int loop = 0;
+      while (cur != null) {
+        if (loop == index) {
+          return cur.val;
+        } else {
+          loop++;
+          cur = cur.next;
         }
-
-        return -1;
+      }
     }
 
-    public void addAtHead(int val) {
-        ListNode oldHead = virtualNode.next;
+    return -1;
+  }
 
-        ListNode newHead = new ListNode(val);
+  public void addAtHead(int val) {
+    ListNode oldHead = virtualNode.next;
 
-        virtualNode.next = newHead;
-        newHead.next = oldHead;
+    ListNode newHead = new ListNode(val);
+
+    virtualNode.next = newHead;
+    newHead.next = oldHead;
+  }
+
+  public void addAtTail(int val) {
+    ListNode pre = virtualNode;
+    ListNode cur = virtualNode.next;
+    while (cur != null) {
+      pre = cur;
+      cur = cur.next;
     }
 
-    public void addAtTail(int val) {
-        ListNode pre = virtualNode;
-        ListNode cur = virtualNode.next;
-        while (cur != null) {
-            pre = cur;
-            cur = cur.next;
-        }
+    pre.next = new ListNode(val);
+  }
 
-        pre.next = new ListNode(val);
+  public void addAtIndex(int index, int val) {
+    ListNode pre = virtualNode;
+
+    int loop = 0;
+    while (pre != null && loop <= index) {
+      if (loop == index) {
+
+        ListNode oldNext = pre.next;
+
+        ListNode newNode = new ListNode(val);
+
+        pre.next = newNode;
+        newNode.next = oldNext;
+      } else {
+        pre = pre.next;
+      }
+
+      loop++;
+    }
+  }
+
+  public void deleteAtIndex(int index) {
+    ListNode pre = virtualNode;
+    ListNode cur = virtualNode.next;
+
+    int loop = 0;
+    while (cur != null && loop <= index) {
+      if (loop == index) {
+        pre.next = cur.next;
+      } else {
+        pre = cur;
+        cur = cur.next;
+      }
+
+      loop++;
+    }
+  }
+
+
+  public static class ListNode {
+    int val;
+    ListNode next;
+
+    ListNode() {
     }
 
-    public void addAtIndex(int index, int val) {
-        ListNode pre = virtualNode;
-
-        int loop = 0;
-        while (pre != null && loop <= index) {
-            if (loop == index) {
-
-                ListNode oldNext = pre.next;
-
-                ListNode newNode = new ListNode(val);
-
-                pre.next = newNode;
-                newNode.next = oldNext;
-            } else {
-                pre = pre.next;
-            }
-
-            loop++;
-        }
+    ListNode(int val) {
+      this.val = val;
     }
-
-    public void deleteAtIndex(int index) {
-        ListNode pre = virtualNode;
-        ListNode cur = virtualNode.next;
-
-        int loop = 0;
-        while (cur != null && loop <= index) {
-            if (loop == index) {
-                pre.next = cur.next;
-            } else {
-                pre = cur;
-                cur = cur.next;
-            }
-
-            loop++;
-        }
-    }
-
-
-    public static class ListNode {
-        int val;
-        ListNode next;
-
-        ListNode() {
-        }
-
-        ListNode(int val) {
-            this.val = val;
-        }
-    }
+  }
 }
