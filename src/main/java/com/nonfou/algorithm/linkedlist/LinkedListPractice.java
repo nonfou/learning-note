@@ -105,6 +105,46 @@ public class LinkedListPractice {
     return pre;
   }
 
+  /**
+   * 删除倒数第n个节点
+   *
+   * @param head 链表
+   * @param n    倒数第n
+   * @return 结果链表
+   */
+  public static ListNode removeNthFromEnd(ListNode head, int n) {
+    if (head == null || n < 1) {
+      return head;
+    }
+
+    ListNode virtualNode = new ListNode();
+    virtualNode.next = head;
+
+    ListNode fast = virtualNode.next;
+
+    ListNode slowPre = virtualNode;
+    ListNode slow = virtualNode.next;
+
+    int step = 0;
+    while (fast != null) {
+
+      if (step >= n) {
+        slowPre = slowPre.next;
+        slow = slow.next;
+      } else {
+        step++;
+      }
+
+      fast = fast.next;
+    }
+
+    if (step >= n) {
+      slowPre.next = slow.next;
+    }
+
+    return virtualNode.next;
+  }
+
   public static class ListNode {
     int val;
     ListNode next;
